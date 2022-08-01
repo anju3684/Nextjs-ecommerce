@@ -10,7 +10,9 @@ export interface state{
         msg?:string;
         refresh_token?:string;
     },
-    cart:any
+    cart:ProductType[],
+    modal:Modal,
+
 
 }
 export interface Action{
@@ -30,7 +32,7 @@ export interface authuser{
     token:string;
     user:userdata;
    }
-   interface ErrorState{
+   export interface ErrorState{
     [key:string]: string | number | boolean | ErrorState | null |undefined
 }   
 type image={
@@ -48,8 +50,14 @@ export interface ProductType{
     description:string;
     content:string;
     category:string;
+    quantity:number;
 }
 type Cart={
-    length?:number;
-
+   length?:number  
+}
+type Modal={
+    data?:ProductType[] | [];
+    id?:string;
+    title?:string;
+    type?:string;
 }

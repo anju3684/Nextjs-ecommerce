@@ -16,7 +16,7 @@ export const DataContext = createContext({} as InitContextProps)
 
 
 export const DataProvider: React.FC<Props> = ({ children }) => {
-    const initialState: state = { notify: {}, auth: {}, cart: [] }
+    const initialState: state = { notify: {}, auth: {}, cart: [],modal:{} }
     const [state, dispatch] = useReducer(reducer, initialState)
     const value = { state, dispatch }
     const {cart}=state
@@ -39,9 +39,11 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        const  cart01 = JSON.parse(localStorage.getItem("cart01") || '')
-        console.log(cart01)
+    
+        const  cart01 = JSON.parse((localStorage.getItem("cart01"))||'[]')
+        
         if (cart01){ dispatch({ type: 'ADD_CART', payload:cart01 })}
+        
     }, [])
 
     useEffect(()=>{

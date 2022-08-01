@@ -3,7 +3,7 @@ import Users from '../../../models/userMode'
 import valid from '../../../utils/valid'
 import bcrypt from "bcrypt"
 import { NextApiRequest, NextApiResponse } from 'next'
-
+import {ErrorState} from "../../../state"
 
 connectDB()
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -37,8 +37,8 @@ async function register(req: NextApiRequest, res: NextApiResponse) {
         await newUser.save()
         res.json({ msg: "Register Success!" })
 
-    } catch (err:any) {
+    } catch (err:unknown) {
         console.log("Internal server error")
-        return res.status(500).json({ err: err.message })
+        return res.status(500).json({ err: (err as ErrorState)?.message })
     }
 }

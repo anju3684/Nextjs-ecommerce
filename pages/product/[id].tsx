@@ -1,17 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
-import {useState} from 'react'
+import {useState,useContext} from 'react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import {getData} from "../../utils/fetchData"
 import {ProductType} from "../../state"
+import { DataContext } from '../../store/GlobalState'
+import {addToCart} from '../../store/Actions'
 type Props={
     product:ProductType
 }
 const DetailProduct=(props:Props)=>{
     const [product]=useState(props.product)
     const [tab, setTab] = useState(0)
-
-
+    const {state,dispatch}=useContext(DataContext)
+    const {cart}=state
 
     const isActive = (index:number) => {
         
@@ -61,7 +63,8 @@ const DetailProduct=(props:Props)=>{
                 </div>
 
                 <button type="button" className="btn btn-dark d-block my-3 px-5"
-               >
+                    onClick={()=>dispatch(addToCart(product,cart))}
+                >
                     Buy
                 </button>
 
