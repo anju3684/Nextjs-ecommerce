@@ -9,6 +9,7 @@ export interface state{
         user?:userdata;
         msg?:string;
         refresh_token?:string;
+        token?:string;
     },
     cart:ProductType[],
     modal:Modal,
@@ -27,6 +28,13 @@ export interface userdata{
     role?:string;
     root?:string;
     avatar?:string;
+    
+}
+export interface cartData{
+    address?:string;
+    mobile?:string;
+    cart?:ProductType[];
+    total?:number;
 }
 export interface authuser{
     token:string;
@@ -51,6 +59,7 @@ export interface ProductType{
     content:string;
     category:string;
     quantity:number;
+
 }
 type Cart={
    length?:number  

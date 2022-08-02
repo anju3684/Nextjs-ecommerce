@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { NextApiRequest, NextApiResponse } from 'next'
 import connectDB from '../../../utils/connectDB'
-import Users from '../../../models/userMode'
+import Users from '../../../models/userModel'
 import bcrypt from "bcrypt"
 import { createAccessToken, createRefreshToken } from "../../../utils/generateToken"
 import {ErrorState} from "../../../state"

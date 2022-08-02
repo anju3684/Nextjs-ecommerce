@@ -1,5 +1,5 @@
 import connectDB from '../../../utils/connectDB'
-import Users from '../../../models/userMode'
+import Users from '../../../models/userModel'
 import valid from '../../../utils/valid'
 import bcrypt from "bcrypt"
 import { NextApiRequest, NextApiResponse } from 'next'

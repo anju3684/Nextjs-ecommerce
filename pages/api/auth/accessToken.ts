@@ -1,5 +1,5 @@
 import connectDB from '../../../utils/connectDB'
-import Users from '../../../models/userMode'
+import Users from '../../../models/userModel'
 import jwt from 'jsonwebtoken'
 import { createAccessToken } from '../../../utils/generateToken'
 import { NextApiRequest, NextApiResponse } from 'next'

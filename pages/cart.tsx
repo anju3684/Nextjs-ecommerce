@@ -8,11 +8,17 @@ import CartItem from '../components/CartItem'
 import { ProductType } from '../state'
 import Link from 'next/link'
 import { getData } from '../utils/fetchData'
+import PaypalBtn from './paypalBtn'
+import { disconnect } from 'process'
 const Cart: NextPage = () => {
-  const { state, dispatch } = useContext(DataContext)
-  const { cart ,auth} = state
-  const [total, setTotal] = useState(0)
 
+  const { state, dispatch } = useContext(DataContext)
+  const { cart, auth } = state
+
+  const [total, setTotal] = useState(0)
+  const [address, setAddress] = useState('')
+  const [mobile, setMobile] = useState('')
+  const [payment, setPayment] = useState(false)
   useEffect(() => {
     const getTotal = () => {
       const res = cart.reduce((prev: number, item: ProductType) => {
@@ -25,18 +31,26 @@ const Cart: NextPage = () => {
 
   }, [cart])
 
+
+  const handlePayment=()=>{
+    if(!mobile || !address){
+     return dispatch({type:'NOTIFY',payload:{error:'Please add your address and mobile number'}})
+    }
+    setPayment(true)
+  }
+
   useEffect(() => {
     const cartLocal = JSON.parse(localStorage.getItem('cart01') || '[]')
     if (cartLocal && cartLocal.length > 0) {
-      let newArr:ProductType[] = []
+      let newArr: ProductType[] = []
       const updateCart = async () => {
         for (const item of cartLocal) {
           const res = await getData(`product/${item._id}`)
-          const { _id, title, images, price, inStock, sold,description,content,category,checked } = res.product
+          const { _id, title, images, price, inStock, sold, description, content, category, checked } = res.product
           if (inStock > 0) {
             newArr.push({
               _id, title, images, price, inStock, sold,
-              quantity: item.quantity > inStock  ? 1 : item.quantity,
+              quantity: item.quantity > inStock ? 1 : item.quantity,
               checked,
               description,
               content,
@@ -44,11 +58,11 @@ const Cart: NextPage = () => {
             })
           }
         }
-        dispatch({type:'ADD_CART',payload:newArr})
+        dispatch({ type: 'ADD_CART', payload: newArr })
       }
       updateCart()
     }
-  },[])
+  }, [])
 
   if (cart.length === 0 || !cart) {
     return <Image src="/empty_cart.jpg" alt="empty_cart" width="1000px" height="1000px" ></Image>
@@ -78,23 +92,28 @@ const Cart: NextPage = () => {
           <label htmlFor="address">Address</label>
           <input type="text" name="address" id="address"
             className="form-control mb-2"
-          // value={address}
-          // onChange={e => setAddress(e.target.value)} 
+            value={address}
+            onChange={e => setAddress(e.target.value)}
           />
 
           <label htmlFor="mobile">Mobile</label>
           <input type="text" name="mobile" id="mobile"
             className="form-control mb-2"
-          // value={mobile}
-          //onChange={e => setMobile(e.target.value)} 
+            value={mobile}
+            onChange={e => setMobile(e.target.value)}
           />
         </form>
         <h3>Total: <span className="text-danger">${total}</span></h3>
-        <Link href={auth.user ? '#!' : '/signin'}>
-          <a className="btn btn-dark my-2" 
-          //onClick={handlePayment}
-          >Proceed with payment</a>
-        </Link>
+        {
+          payment ? <PaypalBtn total={total} address={address} mobile={mobile} state={state} dispatch={dispatch}/> : <Link href={auth.user ? '#' : '/signin'}>
+            <a className="btn btn-dark my-2"
+            onClick={handlePayment}
+            >Proceed with payment</a>
+          </Link>
+        }
+
+
+
       </div>
     </div>
   )

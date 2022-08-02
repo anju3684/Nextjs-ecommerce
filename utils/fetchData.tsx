@@ -1,4 +1,4 @@
-import { userdata } from "../state";
+import { userdata,cartData } from "../state";
 const baseUrl=process.env.BASE_URL
 export const getData=async(url:string,token?:string)=>{
     const res=await fetch(`${baseUrl}/api/${url}`,{
@@ -12,18 +12,28 @@ export const getData=async(url:string,token?:string)=>{
     return data
 }
 
-export const postData=async(url:string,post:userdata)=>{
+export const postData=async(url:string,post:userdata | cartData,token?:string)=>{
+    console.log(post)
+    let headers;
+    if(token){
+        headers={
+            'Authorization':token,
+            'Content-Type':'application/json'
+        }
+    }
+    else{
+        headers={
+            'Content-Type':'application/json'
+        }
+    }
     const res=await fetch(`${baseUrl}/api/${url}`,{
         method:'POST',
-        headers:{
-            // 'Authorization':token
-            'Content-Type':'application/json'
-
-        },
+       
+        headers:headers,
         body:JSON.stringify(post)
     })
     const data=await res.json();
-    console.log(data)
+    // console.log(data)
     return data
 }
 export const putData = async (url:string, post:userdata, token:string) => {
