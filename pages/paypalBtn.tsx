@@ -2,6 +2,7 @@ import { useEffect,useRef,useContext,Dispatch } from "react";
 import { DataContext } from "../store/GlobalState";
 import {state,Action} from "../state"
 import {postData} from "../utils/fetchData"
+import order from "./api/order";
 type Props={
     total:number;
     address:string;
@@ -13,7 +14,7 @@ type Props={
 const PaypalBtn=({total,address,mobile,state,dispatch}:Props)=>{
   
     const refPaypalBtn = useRef<HTMLInputElement>(null)
-    const {cart,auth}=state
+    const {cart,auth,orders}=state
     useEffect(() => {
        (window as any).paypal.Buttons({
             // Sets up the transaction when a payment button is clicked
@@ -38,6 +39,11 @@ const PaypalBtn=({total,address,mobile,state,dispatch}:Props)=>{
                       return dispatch({type:'NOTIFY',payload:{error:res.err}})
                   }
                   dispatch({type:'ADD_CART',payload:[]})
+                  const newOrder={
+                    ...res.newOrder,
+                    user:auth.user
+                  }
+                  dispatch({type:'ADD_ORDERS',payload:[...orders,newOrder]})
                   return dispatch({type:'NOTIFY',payload:{success:res.msg}})
                 })
                 //console.log(data)

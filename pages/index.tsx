@@ -34,7 +34,7 @@ const Home: NextPage<Props> = (props: Props) => {
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getData('product')
+  const res = await getData('product','')
 
   //server side rendering 
   return {

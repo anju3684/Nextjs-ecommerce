@@ -77,7 +77,7 @@ const DetailProduct=(props:Props)=>{
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     //server side rendering 
-    const res=await getData(`product/${params?.id}`)
+    const res=await getData(`product/${params?.id}`,'')
     console.log(res)
     return {
       props: {

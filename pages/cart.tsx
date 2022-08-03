@@ -45,7 +45,7 @@ const Cart: NextPage = () => {
       let newArr: ProductType[] = []
       const updateCart = async () => {
         for (const item of cartLocal) {
-          const res = await getData(`product/${item._id}`)
+          const res = await getData(`product/${item._id}`,auth.token)
           const { _id, title, images, price, inStock, sold, description, content, category, checked } = res.product
           if (inStock > 0) {
             newArr.push({

@@ -4,7 +4,7 @@ import Orders from "../../../models/orderModel";
 import auth from "../../../middleware/auth";
 import Products from "../../../models/productModel"
 import { NextApiRequest, NextApiResponse } from 'next'
-import {ErrorState,ProductType} from "../../../state"
+import { ErrorState, ProductType } from "../../../state"
 import { Number } from "mongoose";
 connectDB()
 
@@ -13,37 +13,61 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
 
         case "POST":
-            await createOrder(req, res) 
+            await createOrder(req, res)
+            break;
+
+        case "GET":
+            await getOrder(req, res)
             break;
     }
 
 }
 async function createOrder(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const result=await auth(req,res)
-        const { address,mobile,cart,total}=req.body
-        const newOrder=new Orders({
-            user:result.id,address,mobile,cart,total
+        const result = await auth(req, res)
+        const { address, mobile, cart, total } = req.body
+        const newOrder = new Orders({
+            user: result.id, address, mobile, cart, total
         })
 
-        cart.filter((item:ProductType)=>{
-            return sold(item._id,item.quantity,item.inStock,item.sold)
+        cart.filter((item: ProductType) => {
+            return sold(item._id, item.quantity, item.inStock, item.sold)
         })
 
         await newOrder.save()
         res.json({
-            msg:'Payment success!will contact you to confirm the order.',
-            newOrder})
- 
+            msg: 'Payment success!will contact you to confirm the order.',
+            newOrder
+        })
+
     } catch (err: unknown) {
         return res.status(500).json({ err: (err as ErrorState)?.message })
 
     }
 
 }
-const sold=async (id:string,quantity:number,oldInStock:number,oldSold:number)=>{
-    await Products.findOneAndUpdate({_id:id},{
-        inStock:oldInStock-quantity,
-        sold:quantity+oldSold
+const sold = async (id: string, quantity: number, oldInStock: number, oldSold: number) => {
+    await Products.findOneAndUpdate({ _id: id }, {
+        inStock: oldInStock - quantity,
+        sold: quantity + oldSold
     })
+}
+async function getOrder(req: NextApiRequest, res: NextApiResponse) {
+    try {
+        const result =await auth(req,res)
+        let orders;
+        if(result.role!=='admin'){
+            orders=await Orders.find({user:result.id}).populate("user","-password")
+        }else{
+            orders=await Orders.find().populate("user","-password")
+        }
+   
+        res.json({
+            status: 'success',
+            orders
+        })
+
+    }catch(err:unknown){
+        return res.status(500).json({ err: (err as ErrorState)?.message })
+    }
 }

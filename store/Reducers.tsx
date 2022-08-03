@@ -22,6 +22,11 @@ const reducer = (state: state, action: Action) => {
                 ...state,
                 modal: action.payload
             }
+        case ACTIONS.ADD_ORDERS:
+            return {
+                ...state,
+                orders: action.payload
+            }
         default:
             return state;
     }

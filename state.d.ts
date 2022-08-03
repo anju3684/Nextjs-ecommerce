@@ -4,15 +4,11 @@ export interface state{
         error?:string;
         success?:string;
     },
-    auth:{
-        access_token?:string;
-        user?:userdata;
-        msg?:string;
-        refresh_token?:string;
-        token?:string;
-    },
+ 
+    auth:authuser,
     cart:ProductType[],
     modal:Modal,
+    orders:Order[],
 
 
 }
@@ -28,6 +24,7 @@ export interface userdata{
     role?:string;
     root?:string;
     avatar?:string;
+    auth?:authuser;
     
 }
 export interface cartData{
@@ -38,7 +35,7 @@ export interface cartData{
 }
 export interface authuser{
     token:string;
-    user:userdata;
+    user?:userdata;
    }
    export interface ErrorState{
     [key:string]: string | number | boolean | ErrorState | null |undefined
@@ -69,4 +66,20 @@ type Modal={
     id?:string;
     title?:string;
     type?:string;
+}
+export interface Order{
+    address?:string;
+    cart?:ProductType[];
+    createdAt?:string;
+    delivered?:boolean;
+    mobile?:string;
+    paid?:boolean;
+    total?:number;
+    user?:userdata;
+    _id?:string;
+    updatedAt?:string;
+    method?:'POST'|'GET'|'DELETE'|'PATCH'|'PUT';
+    paymentId?:string;
+    dateOfPayment?:string;
+
 }

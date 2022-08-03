@@ -26,4 +26,5 @@ a {
 }
 
 @import url("./loading.css");
-@import url("./product.css")
+@import url("./product.css");
+@import url("./profile.css");

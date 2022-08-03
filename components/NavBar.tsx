@@ -38,14 +38,14 @@ const NavBar: NextPage = () => {
       <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-          <img src={(auth as authuser).user.avatar || ''} alt="" style={{
+          <img src={(auth as authuser).user?.avatar || ''} alt="" style={{
             borderRadius: '50%',
             width: '30px',
             height: '30px',
             transform: 'translateY(-3px)',
             marginRight: '3px',
           }}
-          /> {(auth as authuser).user.name}
+          /> {(auth as authuser).user?.name}
         </a>
 
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
