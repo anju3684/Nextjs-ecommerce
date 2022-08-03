@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'

@@ -1,5 +1,5 @@
 // @ts-ignore: Object is possibly 'null'.
-import { ProductType, Cart } from "../state"
+import { ProductType, Cart,Order } from "../state"
 export const ACTIONS = {
     NOTIFY: 'NOTIFY',
     AUTH: 'AUTH',
@@ -44,9 +44,13 @@ export const increase = (data: ProductType[], id: string) => {
     return ({ type: 'ADD_CART', payload: newData })
 }
 
-export const deleteItem=(data:any,id:string,type:string)=>{
+export const deleteItem=(data:ProductType[],id:string,type:string)=>{
     console.log(data)
     const newData=data.filter((item:any)=>item._id!==id)
     return({type:type,payload:newData})
 
+}
+export const updateItem=(data:Order[],id:string,post:any,type:string)=>{
+    const newData = data.map(item => (item._id === id ? post : item))
+    return ({ type, payload: newData})
 }

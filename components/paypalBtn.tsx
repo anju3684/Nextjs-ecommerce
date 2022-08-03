@@ -1,20 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect,useRef,useContext,Dispatch } from "react";
 import { DataContext } from "../store/GlobalState";
-import {state,Action} from "../state"
-import {postData} from "../utils/fetchData"
-import order from "./api/order";
-type Props={
-    total:number;
-    address:string;
-    mobile:string;
-    state:state;
-    dispatch:Dispatch<Action>;
+import {state,Action,Order} from "../state"
+import {patchData} from "../utils/fetchData"
+import { updateItem } from "../store/Actions";
+//import order from "../pages/api/order";
+// type Props={
+//     total:number;
+//     address:string;
+//     mobile:string;
+//     state:state;
+//     dispatch:Dispatch<Action>;
     
-}
-const PaypalBtn=({total,address,mobile,state,dispatch}:Props)=>{
+// }
+const PaypalBtn=({order}:any)=>{
+  console.log(order)
+  const {state, dispatch} = useContext(DataContext)
+    const { auth, orders} = state
   
     const refPaypalBtn = useRef<HTMLInputElement>(null)
-    const {cart,auth,orders}=state
     useEffect(() => {
        (window as any).paypal.Buttons({
             // Sets up the transaction when a payment button is clicked
@@ -23,28 +27,27 @@ const PaypalBtn=({total,address,mobile,state,dispatch}:Props)=>{
               return actions.order.create({
                 purchase_units: [{
                   amount: {
-                    value: total // Can also reference a variable or function
+                    value: order.total // Can also reference a variable or function
                   }
                 }]
               });
             },
             // Finalize the transaction after payer approval
             onApprove: (data:any, actions:any) => {
-              
+              dispatch({type:'NOTIFY',payload:{loading:true}})
               return actions.order.capture().then(function(orderData:any) {
-               dispatch({type:'NOTIFY',payload:{loading:true}})
-                postData('order',{address,mobile,cart,total},auth.token)
-                .then(res=>{
-                  if(res.err){
-                      return dispatch({type:'NOTIFY',payload:{error:res.err}})
-                  }
-                  dispatch({type:'ADD_CART',payload:[]})
-                  const newOrder={
-                    ...res.newOrder,
-                    user:auth.user
-                  }
-                  dispatch({type:'ADD_ORDERS',payload:[...orders,newOrder]})
-                  return dispatch({type:'NOTIFY',payload:{success:res.msg}})
+               
+                patchData(`order/${order._id}`,{}, auth.token)
+                .then(res => {
+                  if(res.err) return dispatch({ type: 'NOTIFY', payload: {error: res.err} })
+                  
+                  dispatch(updateItem(orders, order._id, {
+                    ...order, 
+                    paid: true, dateOfPayment: new Date().toISOString(),
+              
+                  }, 'ADD_ORDERS'))
+
+                  return dispatch({ type: 'NOTIFY', payload: {success: res.msg} })
                 })
                 //console.log(data)
                 // Successful capture! For dev/demo purposes:

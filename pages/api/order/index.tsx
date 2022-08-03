@@ -36,7 +36,7 @@ async function createOrder(req: NextApiRequest, res: NextApiResponse) {
 
         await newOrder.save()
         res.json({
-            msg: 'Payment success!will contact you to confirm the order.',
+            
             newOrder
         })
 

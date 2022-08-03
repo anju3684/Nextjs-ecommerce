@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useContext, Dispatch } from 'react'
 import Link from 'next/link';
-import { Action, Order, state } from "../state"
+import { Action, Order, state } from "../state";
+import PaypalBtn from "./paypalBtn"
 type Props = {
     orderDetail: Order[];
     state: state;
@@ -90,7 +91,7 @@ const OrderDetail = ({ orderDetail, state, dispatch }: Props) => {
                         !order.paid && auth.user?.role !== 'admin' &&
                         <div className="p-4">
                             <h2 className="mb-4 text-uppercase">Total: ${order.total}</h2>
-                            {/* <PaypalBtn order={order} /> */}
+                            <PaypalBtn order={order} />
                         </div>
                     }
                    
