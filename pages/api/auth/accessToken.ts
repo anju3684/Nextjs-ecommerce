@@ -15,7 +15,7 @@ interface IdEmail {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const rf_token = req.cookies.refreshToken;
-        if (!rf_token) return res.status(400).json({ err: 'Please login now!' })
+        if (!rf_token || rf_token==='') return res.status(400).json({ err: 'Please login now!' })
 
         const result = jwt.verify(rf_token, (process.env.REFRESH_TOKEN_SECRET || '')) as IdEmail
         if (!result) return res.status(400).json({ err: 'Your token is incorrect or has expired.' })

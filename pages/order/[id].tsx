@@ -29,7 +29,7 @@ const DetailOrder = () => {
                     <i className="fas fa-long-arrow-alt-left"  aria-hidden="true"></i> Go Back
                 </button>
             </div> 
-            <OrderDetail orderDetail={orderDetail} state={state} dispatch={dispatch} />
+            <OrderDetail orderDetail={orderDetail} auth={auth} />
         
         </div>
     )

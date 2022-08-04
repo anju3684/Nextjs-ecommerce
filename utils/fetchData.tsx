@@ -62,7 +62,7 @@ type Post={
     paymentId:string;
 }
 
-export const patchData = async (url:string, post:userdata | Post, token:string) => {
+export const patchData = async (url:string, post:userdata | Post | {}, token:string) => {
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PATCH',
         headers: {

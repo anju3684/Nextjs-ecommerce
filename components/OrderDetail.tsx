@@ -1,17 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useContext, Dispatch } from 'react'
 import Link from 'next/link';
-import { Action, Order, state } from "../state";
+import { Action, Order, state,authuser } from "../state";
 import {patchData} from "../utils/fetchData";
 import { updateItem } from "../store/Actions";
 import PaypalBtn from "./paypalBtn"
+import { DataContext } from '../store/GlobalState';
 type Props = {
     orderDetail: Order[];
-    state: state;
-    dispatch: Dispatch<Action>;
+    // state: state;
+    // dispatch: Dispatch<Action>;
+    auth:authuser;
 }
-const OrderDetail = ({ orderDetail, state, dispatch }: Props) => {
-    const { auth,orders } = state
+const OrderDetail = ({ orderDetail,auth }: Props) => {
+    //const { auth,orders } = state
+    const {state,dispatch}=useContext(DataContext)
+    const {orders}=state
     const handleDelivered = (order:Order) => {
         dispatch({type: 'NOTIFY', payload: {loading: true}})
 
@@ -54,7 +58,7 @@ const OrderDetail = ({ orderDetail, state, dispatch }: Props) => {
                                     {
                                         auth.user?.role === 'admin' && !order.delivered &&
                                         <button className="btn btn-dark text-uppercase"
-                                        // onClick={() => handleDelivered(order)}
+                                         onClick={() => handleDelivered(order)}
                                         >
                                             Mark as delivered
                                         </button>
