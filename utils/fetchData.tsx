@@ -58,8 +58,11 @@ export const putData = async (url:string, post:userdata, token:string) => {
     const data = await res.json()
     return data
 }
+type Post={
+    paymentId:string;
+}
 
-export const patchData = async (url:string, post:userdata, token:string) => {
+export const patchData = async (url:string, post:userdata | Post, token:string) => {
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PATCH',
         headers: {

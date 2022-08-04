@@ -78,7 +78,7 @@ export interface Order{
     user?:userdata;
     _id?:string;
     updatedAt?:string;
-    method?:'POST'|'GET'|'DELETE'|'PATCH'|'PUT';
+    method?:string;
     paymentId?:string;
     dateOfPayment?:string;
 

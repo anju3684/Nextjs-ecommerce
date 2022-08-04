@@ -63,7 +63,6 @@ async function getOrder(req: NextApiRequest, res: NextApiResponse) {
         }
    
         res.json({
-            status: 'success',
             orders
         })
 

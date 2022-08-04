@@ -50,7 +50,7 @@ export const deleteItem=(data:ProductType[],id:string,type:string)=>{
     return({type:type,payload:newData})
 
 }
-export const updateItem=(data:Order[],id:string,post:any,type:string)=>{
+export const updateItem=(data:Order[],id:string | '',post:any,type:string)=>{
     const newData = data.map(item => (item._id === id ? post : item))
     return ({ type, payload: newData})
 }

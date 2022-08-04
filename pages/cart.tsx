@@ -51,10 +51,12 @@ const Cart: NextPage = () => {
         }
       })
     }
+  
 
     dispatch({ type: 'NOTIFY', payload: { loading: true } })
     postData('order', { address, mobile, cart, total }, auth.token)
-      .then((res):any=>{
+      .then((res):void | Promise<Boolean | void>=>{
+        console.log(res)
         if (res.err) { 
           return dispatch({ type: 'NOTIFY', payload: { error: res.err } }) 
         }
@@ -143,10 +145,6 @@ const Cart: NextPage = () => {
             onClick={handlePayment}
           >Proceed with payment</a>
         </Link>
-
-
-
-
       </div>
     </div>
   )

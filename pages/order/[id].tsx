@@ -28,8 +28,7 @@ const DetailOrder = () => {
                 <button className="btn btn-dark" onClick={() => router.back()}>
                     <i className="fas fa-long-arrow-alt-left"  aria-hidden="true"></i> Go Back
                 </button>
-            </div>
-            
+            </div> 
             <OrderDetail orderDetail={orderDetail} state={state} dispatch={dispatch} />
         
         </div>

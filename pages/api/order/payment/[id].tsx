@@ -1,10 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-import connectDB from '../../../utils/connectDB'
-import Products from '../../../models/productModel'
+import connectDB from '../../../../utils/connectDB'
+//import Products from '../../../models/productModel'
 import { NextApiRequest, NextApiResponse } from 'next'
-import {ErrorState} from "../../../state"
-import auth from "../../../middleware/auth"
-import Orders from '../../../models/orderModel'
+import {ErrorState} from "../../../../state"
+import auth from "../../../../middleware/auth"
+import Orders from '../../../../models/orderModel'
 connectDB()
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -18,9 +18,11 @@ const paymentOrder = async (req:NextApiRequest, res:NextApiResponse) => {
 
     try{
         const result=await auth(req,res)
-        const {id}=req.query
+        const {id}=req.query;
+        const {paymentId}=req.body;
         await Orders.findOneAndUpdate({_id:id},{
-            paid:true,dateOfPayment:new Date().toISOString()
+            paid:true,dateOfPayment:new Date().toISOString(),paymentId,
+            method:'Paypal'
         })
         res.json({msg:'Payment success!'})
 
