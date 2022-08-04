@@ -6,7 +6,8 @@ import {Dispatch} from 'react'
 type props={
     item:ProductType;
     dispatch:Dispatch<Action>;
-    cart:ProductType[]
+    cart:ProductType[];
+ 
 }
 const CartItem = ({item, dispatch, cart}:props) => {
    
@@ -51,7 +52,7 @@ const CartItem = ({item, dispatch, cart}:props) => {
                 style={{fontSize: '18px'}} data-toggle="modal" data-target="#exampleModal"
                 onClick={() => dispatch({
                     type: 'ADD_MODAL',
-                    payload: { data: cart, id: item._id, title: item.title, type: 'ADD_CART' }
+                    payload: [{ data: cart, id: item._id, title: item.title, type: 'ADD_CART' }]
                 })} ></i>
             </td>
         </tr>

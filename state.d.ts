@@ -7,8 +7,9 @@ export interface state{
  
     auth:authuser,
     cart:ProductType[],
-    modal:Modal,
+    modal:Modal[],
     orders:Order[],
+    users:userdata[]
 
 
 }
@@ -25,6 +26,7 @@ export interface userdata{
     root?:string;
     avatar?:string;
     auth?:authuser;
+    _id?:string;
     
 }
 export interface cartData{
@@ -62,10 +64,11 @@ type Cart={
    length?:number  
 }
 type Modal={
-    data?:ProductType[] | [];
+    data?:ProductType[] | [] | userdata[];
     id?:string;
     title?:string;
     type?:string;
+
 }
 export interface Order{
     address?:string;
