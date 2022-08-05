@@ -14,7 +14,14 @@ type Props={
 
 const Home: NextPage<Props> = (props: Props) => {
   const [products, setProducts] = useState(props.productProps)
+  const [isCheck,setIsCheck]=useState([])
+  const handleCheck=(id:string)=>{
+    products.forEach(product => {
+      if(product._id === id) product.checked = !product.checked
+    })
+    setProducts([...products])
 
+  }
   return (
     <div className="products">
 
@@ -23,7 +30,7 @@ const Home: NextPage<Props> = (props: Props) => {
       </Head>
       {!products ? <><h2>No products</h2></> :
         products.map((value)=>(
-          <ProductItem key={value._id} product={value}/>
+          <ProductItem key={value._id} product={value} handleCheck={handleCheck}/>
 
         ))
       }
@@ -46,3 +53,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 
 export default Home
+
+
+
+

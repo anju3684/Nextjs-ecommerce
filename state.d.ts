@@ -48,17 +48,17 @@ type image={
     public_id:string
 }
 export interface ProductType{
-    _id:string;
+    _id?:string;
     images:image[]
-    checked:boolean;
-    inStock:number;
-    sold:number;
-    title:string;
-    price:number;
-    description:string;
-    content:string;
-    category:string;
-    quantity:number;
+    checked?:boolean;
+    inStock?:number;
+    sold?:number;
+    title?:string;
+    price?:number;
+    description?:string;
+    content?:string;
+    category?:string;
+    quantity?:number;
 
 }
 type Cart={

@@ -49,7 +49,7 @@ const DetailProduct=(props:Props)=>{
 
                 <div className="row mx-0 d-flex justify-content-between">
                     {
-                        product.inStock > 0
+                        (product.inStock || 0) > 0
                         ? <h6 className="text-danger">In Stock: {product.inStock}</h6>
                         : <h6 className="text-danger">Out Stock</h6>
                     }

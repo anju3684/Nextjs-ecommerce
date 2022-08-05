@@ -1,4 +1,4 @@
-import { userdata,cartData,Categories } from "../state";
+import { userdata,cartData,Categories, ProductType } from "../state";
 const baseUrl=process.env.BASE_URL
 export const getData=async(url:string,token:string)=>{
     let headers;
@@ -21,7 +21,7 @@ export const getData=async(url:string,token:string)=>{
     return data
 }
 
-export const postData=async(url:string,post:userdata | cartData | Categories ,token?:string)=>{
+export const postData=async(url:string,post:userdata | cartData | Categories | ProductType,token?:string)=>{
     console.log(post)
     let headers;
     if(token){
@@ -42,10 +42,11 @@ export const postData=async(url:string,post:userdata | cartData | Categories ,to
         body:JSON.stringify(post)
     })
     const data=await res.json();
-    // console.log(data)
+     console.log(data)
     return data
 }
-export const putData = async (url:string, post:userdata | Categories, token:string) => {
+export const putData = async (url:string, post:userdata| Categories | ProductType, token:string) => {
+    console.log(post)
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PUT',
         headers: {
@@ -89,3 +90,4 @@ export const deleteData = async (url:string, token:string) => {
     const data = await res.json()
     return data
 }
+
