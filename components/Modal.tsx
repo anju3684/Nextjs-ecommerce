@@ -13,7 +13,7 @@ const Modal = () => {
     const router = useRouter()
 
     const deleteUser = (item:Modal) => {
-        console.log(item)
+   
         dispatch(deleteItem(item.data, (item.id || ''), (item.type|| '')))
         
         deleteData(`user/${item.id}`, auth.token)
@@ -23,15 +23,15 @@ const Modal = () => {
         })
     }
 
-    // const deleteCategories = (item) => {
-    //     deleteData(`categories/${item.id}`, auth.token)
-    //     .then(res => {
-    //         if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
+    const deleteCategories = (item:Modal) => {
+        deleteData(`categories/${item.id}`, auth.token)
+        .then(res => {
+            if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
 
-    //         dispatch(deleteItem(item.data, item.id, item.type))
-    //         return dispatch({type: 'NOTIFY', payload: {success: res.msg}})
-    //     })
-    // }
+            dispatch(deleteItem(item.data, (item.id || ''), (item.type || '') ))
+            return dispatch({type: 'NOTIFY', payload: {success: res.msg}})
+        })
+    }
 
     const deleteProduct = (item:Modal) => {
         console.log(item)
@@ -53,7 +53,7 @@ const Modal = () => {
 
                 if(item.type === 'ADD_USERS') deleteUser(item)
         
-                // if(item.type === 'ADD_CATEGORIES') deleteCategories(item)
+                 if(item.type === 'ADD_CATEGORIES') deleteCategories(item)
         
                 if(item.type === 'DELETE_PRODUCT') deleteProduct(item)
         

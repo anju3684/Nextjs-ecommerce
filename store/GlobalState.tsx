@@ -18,7 +18,7 @@ export const DataContext = createContext({} as InitContextProps)
 
 
 export const DataProvider: React.FC<Props> = ({ children }) => {
-    const initialState: state = { notify: {}, auth: { token: '' }, cart: [], modal: [], orders: [], users: [] }
+    const initialState: state = { notify: {}, auth: { token: '' }, cart: [], modal: [], orders: [], users: [],categories:[] }
     const [state, dispatch] = useReducer(reducer, initialState)
     const value = { state, dispatch }
     const { cart, auth } = state
@@ -35,6 +35,12 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
                         user: res.user
                     }
                 })
+            })
+            getData('categories','').then(res=>{
+                if(res.err){
+                    return dispatch({type:'NOTIFY',payload:{error:res.err}})
+                }
+                dispatch({type:'ADD_CATEGORIES',payload:res.categories})
             })
         }
 

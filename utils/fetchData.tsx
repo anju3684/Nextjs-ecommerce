@@ -1,4 +1,4 @@
-import { userdata,cartData } from "../state";
+import { userdata,cartData,Categories } from "../state";
 const baseUrl=process.env.BASE_URL
 export const getData=async(url:string,token:string)=>{
     let headers;
@@ -21,7 +21,7 @@ export const getData=async(url:string,token:string)=>{
     return data
 }
 
-export const postData=async(url:string,post:userdata | cartData,token?:string)=>{
+export const postData=async(url:string,post:userdata | cartData | Categories ,token?:string)=>{
     console.log(post)
     let headers;
     if(token){
@@ -45,7 +45,7 @@ export const postData=async(url:string,post:userdata | cartData,token?:string)=>
     // console.log(data)
     return data
 }
-export const putData = async (url:string, post:userdata, token:string) => {
+export const putData = async (url:string, post:userdata | Categories, token:string) => {
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PUT',
         headers: {

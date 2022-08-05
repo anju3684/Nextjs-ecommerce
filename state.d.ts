@@ -9,7 +9,8 @@ export interface state{
     cart:ProductType[],
     modal:Modal[],
     orders:Order[],
-    users:userdata[]
+    users:userdata[],
+    categories:Categories[]
 
 
 }
@@ -64,7 +65,7 @@ type Cart={
    length?:number  
 }
 type Modal={
-    data?:ProductType[] | [] | userdata[];
+    data?:ProductType[] | [] | userdata[] | Categories[];
     id?:string;
     title?:string;
     type?:string;
@@ -85,4 +86,8 @@ export interface Order{
     paymentId?:string;
     dateOfPayment?:string;
 
+}
+type Categories={
+    _id?:string;
+    name?:string;
 }
