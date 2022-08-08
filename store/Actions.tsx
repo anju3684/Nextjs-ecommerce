@@ -29,7 +29,8 @@ export const decrease = (data: ProductType[], id: string) => {
     
     const newData = [...data]
     newData.forEach(item => {
-        if (item._id === id) { 
+        if (item._id === id && ((item.quantity===0) ||item.quantity)) { 
+
             item.quantity -= 1 
         }
     })
@@ -40,7 +41,7 @@ export const decrease = (data: ProductType[], id: string) => {
 export const increase = (data: ProductType[], id: string) => {
     const newData = [...data]
     newData.forEach(item => {
-        if (item._id === id) item.quantity += 1
+        if (item._id === id && ((item.quantity===0) ||item.quantity)) item.quantity += 1
     })
 
     return ({ type: 'ADD_CART', payload: newData })
