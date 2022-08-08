@@ -99,7 +99,7 @@ const OrderDetail = ({ orderDetail,auth }: Props) => {
                                                 </h5>
 
                                                 <span className="text-info m-0">
-                                                    {item.quantity} x ${item.price} = ${item.price * item.quantity}
+                                                    {item.quantity} x ${item.price} = ${(item.price || 0) * (item.quantity || 0)}
                                                 </span>
 
                                             </div>
