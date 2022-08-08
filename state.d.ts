@@ -58,7 +58,7 @@ export interface ProductType{
     description?:string;
     content?:string;
     category?:string;
-    quantity?:number;
+    quantity:number;
 
 }
 type Cart={
