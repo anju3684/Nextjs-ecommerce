@@ -24,3 +24,8 @@ a {
     background: black;
   }
 }
+
+@import url("./loading.css");
+@import url("./product.css");
+@import url("./profile.css");
+@import url("./product_manager.css");
