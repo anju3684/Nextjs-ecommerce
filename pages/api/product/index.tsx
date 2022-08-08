@@ -9,7 +9,7 @@ import auth from '../../../middleware/auth'
 
 connectDB()
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    console.log(req.method)
+
     switch (req.method) {
 
         case "GET":
@@ -21,10 +21,60 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
 }
+type QueryString={
+    [key:string]:string | number | boolean | QueryString | null |undefined| string[]|number[]|any
+}   
+class APIfeatures {
+    public query:any;
+    
+    public queryString:QueryString;
+    
+    constructor(query:any, queryString:any){
+        console.log(query,queryString)
+        this.query = query;
+        this.queryString = queryString;
+    }
+    filtering(){
+        const queryObj = {...this.queryString}
+
+        const excludeFields = ['page', 'sort', 'limit']
+        //excludeFields?.forEach((el:string) => delete(queryObj[el]))
+
+        if(queryObj.category !== 'all')
+            this.query.find({category: queryObj.category})
+        if(queryObj.title !== 'all')
+            this.query.find({title: {$regex: queryObj.title}})
+
+        this.query.find()
+        return this;
+    }
+
+    sorting(){
+        if(this.queryString.sort){
+            const sortBy = (this.queryString.sort as string).split(',').join('')
+            this.query = this.query.sort(sortBy)
+        }else{
+            this.query = this.query.sort('-createdAt')
+        }
+
+        return this;
+    }
+
+    paginating(){
+        const page = this.queryString.page * 1 || 1
+        const limit = this.queryString.limit * 1 || 6
+        const skip = (page - 1) * limit;
+        this.query = this.query.skip(skip).limit(limit)
+        return this;
+    }
+}
 
 async function getProducts(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const products = await Products.find()
+        const features = new APIfeatures(Products.find(), req.query)
+        .filtering().sorting().paginating()
+        console.log(features)
+        const products = await features.query
         console.log(products)
         res.json({
             status: 'success',

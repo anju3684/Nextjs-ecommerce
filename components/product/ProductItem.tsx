@@ -64,7 +64,7 @@ const ProductItem: NextPage<Props> = ({ product,handleCheck }: Props) => {
                 <input type="checkbox" checked={product.checked}
                 className="position-absolute"
                 style={{height: '20px', width: '20px'}}
-                onChange={() => handleCheck(product._id)} />
+                onChange={() => handleCheck((product._id || ''))} />
             }
                 <img className="card-img-top" src={product.images[0].url}  alt={product.images[0].url} />
                 <div className="card-body">
