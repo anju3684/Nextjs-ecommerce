@@ -29,7 +29,7 @@ const CartItem = ({item, dispatch, cart}:props) => {
 
                 <h6 className="text-danger">${ item.price}</h6>
                 {
-                    item.inStock > 0
+                    (item.inStock || 0) > 0
                     ? <p className="mb-1 text-danger">In Stock: {item.inStock}</p>
                     : <p className="mb-1 text-danger">Out Stock</p> 
                 }
@@ -37,13 +37,13 @@ const CartItem = ({item, dispatch, cart}:props) => {
 
             <td className="align-middle" style={{minWidth: '150px'}}>
                 <button className="btn btn-outline-secondary"
-                onClick={ () => dispatch(decrease(cart, item._id)) } 
+                onClick={ () => dispatch(decrease(cart, (item._id || ''))) } 
                 disabled={item.quantity === 1 ? true : false} > - </button>
 
                 <span className="px-3">{item.quantity}</span>
 
                 <button className="btn btn-outline-secondary"
-                onClick={ () => dispatch(increase(cart, item._id)) }
+                onClick={ () => dispatch(increase(cart, (item._id || ''))) }
                 disabled={item.quantity === item.inStock ? true : false} > + </button>
             </td>
 
