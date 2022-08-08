@@ -31,7 +31,7 @@ async function createOrder(req: NextApiRequest, res: NextApiResponse) {
         })
 
         cart.filter((item: ProductType) => {
-            return sold(item._id, item.quantity, item.inStock, item.sold)
+            return sold((item._id || ''), (item.quantity || 0), (item.inStock || 0), (item.sold || 0))
         })
 
         await newOrder.save()

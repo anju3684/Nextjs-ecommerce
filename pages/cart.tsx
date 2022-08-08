@@ -22,7 +22,7 @@ const Cart: NextPage = () => {
     const getTotal = () => {
       const res = cart.reduce((prev: number, item: ProductType) => {
 
-        return prev + (item.price * item.quantity)
+        return prev + ((item.price || 0) * (item.quantity || 0))
       }, 0)
       setTotal(res)
     }
@@ -38,7 +38,7 @@ const Cart: NextPage = () => {
     let newCart = [];
     for (const item of cart) {
       const res = await getData(`product/${item._id}`, '')
-      if (res.product.inStock - item.quantity >= 0) {
+      if (res.product.inStock - (item.quantity || 0) >= 0) {
         newCart.push(item)
       }
     }
