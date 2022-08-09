@@ -1,13 +1,13 @@
 // @ts-ignore: Object is possibly 'null'.
-import { ProductType, Cart,Order, userdata, Categories } from "../state"
+import { ProductType, Cart, Order, userdata, Categories } from "../state"
 export const ACTIONS = {
     NOTIFY: 'NOTIFY',
     AUTH: 'AUTH',
     ADD_CART: 'ADD_CART',
-    ADD_MODAL:'ADD_MODAL',
-    ADD_ORDERS:'ADD_ORDERS',
-    ADD_USERS:'ADD_USERS',
-    ADD_CATEGORIES:'ADD_CATEGORIES',
+    ADD_MODAL: 'ADD_MODAL',
+    ADD_ORDERS: 'ADD_ORDERS',
+    ADD_USERS: 'ADD_USERS',
+    ADD_CATEGORIES: 'ADD_CATEGORIES',
 }
 
 export const addToCart = (product: ProductType, cart: ProductType[]) => {
@@ -26,12 +26,11 @@ export const addToCart = (product: ProductType, cart: ProductType[]) => {
     return ({ type: 'ADD_CART', payload: [...cart, { ...product, quantity: 1 }] })
 }
 export const decrease = (data: ProductType[], id: string) => {
-    
+
     const newData = [...data]
     newData.forEach(item => {
-        if (item._id === id && ((item.quantity===0) ||item.quantity)) { 
-
-            item.quantity -= 1 
+        if (item._id === id && ((item.quantity === 0) || item.quantity)) {
+            item.quantity -= 1
         }
     })
 
@@ -41,19 +40,19 @@ export const decrease = (data: ProductType[], id: string) => {
 export const increase = (data: ProductType[], id: string) => {
     const newData = [...data]
     newData.forEach(item => {
-        if (item._id === id && ((item.quantity===0) ||item.quantity)) item.quantity += 1
+        if (item._id === id && ((item.quantity === 0) || item.quantity)) item.quantity += 1
     })
 
     return ({ type: 'ADD_CART', payload: newData })
 }
 
-export const deleteItem=(data:any,id:string,type:string)=>{
+export const deleteItem = (data: any, id: string, type: string) => {
     console.log(data)
-    const newData=data.filter((item:any)=>item._id!==id)
-    return({type:type,payload:newData})
+    const newData = data.filter((item: any) => item._id !== id)
+    return ({ type: type, payload: newData })
 
 }
-export const updateItem=(data:Order[] | userdata[] | [],id:string | '',post:any,type:string)=>{
+export const updateItem = (data: Order[] | userdata[] | [], id: string | '', post: any, type: string) => {
     const newData = data.map(item => (item._id === id ? post : item))
-    return ({ type, payload: newData})
+    return ({ type, payload: newData })
 }
