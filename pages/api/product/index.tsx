@@ -21,13 +21,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
 }
-type QueryString={
-    [key:string]:string | number | boolean | QueryString | null |undefined| string[]|number[]|any
-}   
+// type QueryString={
+//     [key:string]:string | number | boolean | QueryString | null |undefined| string[]|number[]
+// }   
 class APIfeatures {
     public query:any;
     
-    public queryString:QueryString;
+    public queryString:any;
     
     constructor(query:any, queryString:any){
         console.log(query,queryString)
@@ -38,7 +38,7 @@ class APIfeatures {
         const queryObj = {...this.queryString}
 
         const excludeFields = ['page', 'sort', 'limit']
-        //excludeFields?.forEach((el:string) => delete(queryObj[el]))
+        excludeFields?.forEach((el:string) => delete(queryObj[el]))
 
         if(queryObj.category !== 'all')
             this.query.find({category: queryObj.category})
