@@ -37,7 +37,7 @@ export interface cartData{
     total?:number;
 }
 export interface authuser{
-    token:string;
+    token?:string;
     user?:userdata;
    }
    export interface ErrorState{

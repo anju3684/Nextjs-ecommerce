@@ -16,7 +16,7 @@ const Modal = () => {
    
         dispatch(deleteItem(item.data, (item.id || ''), (item.type|| '')))
         
-        deleteData(`user/${item.id}`, auth.token)
+        deleteData(`user/${item.id}`, (auth.token || ''))
         .then(res => {
             if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
             return dispatch({type: 'NOTIFY', payload: {success: res.msg}})
@@ -24,7 +24,7 @@ const Modal = () => {
     }
 
     const deleteCategories = (item:Modal) => {
-        deleteData(`categories/${item.id}`, auth.token)
+        deleteData(`categories/${item.id}`, (auth.token || ''))
         .then(res => {
             if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
 
@@ -36,7 +36,7 @@ const Modal = () => {
     const deleteProduct = (item:Modal) => {
         console.log(item)
         dispatch({type: 'NOTIFY', payload: {loading: true}})
-        deleteData(`product/${item.id}`, auth.token)
+        deleteData(`product/${item.id}`, (auth.token || ''))
         .then((res):void | Promise<Boolean | void> => {
             if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
             dispatch({type: 'NOTIFY', payload: {success: res.msg}})

@@ -15,7 +15,7 @@ const NavBar: NextPage = () => {
   const { state, dispatch } = useContext(DataContext)
   const { auth, cart } = state
 
-
+  console.log(auth)
   const isActive = (r: string) => {
     if (r === router.pathname) {
       return "Active"
@@ -112,7 +112,7 @@ const NavBar: NextPage = () => {
               </Link>
             </li>
             {
-              Object.keys(auth as authuser).length === 0 ?
+               Object.keys(auth as authuser).length === 0 ?
                 <>
                   <li className="nav-item active">
                     <Link href="/signin">

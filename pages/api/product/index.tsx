@@ -36,9 +36,9 @@ class APIfeatures {
     }
     filtering(){
         const queryObj = {...this.queryString}
-
+        console.log(queryObj)
         const excludeFields = ['page', 'sort', 'limit']
-        excludeFields?.forEach((el:string) => delete(queryObj[el]))
+        excludeFields.forEach((el:string) => delete queryObj[el])
 
         if(queryObj.category !== 'all')
             this.query.find({category: queryObj.category})
@@ -48,7 +48,7 @@ class APIfeatures {
         this.query.find()
         return this;
     }
-
+  
     sorting(){
         if(this.queryString.sort){
             const sortBy = (this.queryString.sort as string).split(',').join('')

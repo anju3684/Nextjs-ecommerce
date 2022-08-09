@@ -45,13 +45,24 @@ export const postData=async(url:string,post:userdata | cartData | Categories | P
      console.log(data)
     return data
 }
-export const putData = async (url:string, post:userdata| Categories | ProductType, token:string) => {
-    console.log(post)
+export const putData = async (url:string, post:userdata| Categories | ProductType, token?:string) => {
+    let headers;
+    if(token!==''){
+        headers={
+            'Authorization':token,
+            'Content-Type':'application/json'
+        }
+    }
+    else{
+        headers={
+            'Content-Type':'application/json'
+        }
+    }
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
+      
         },
         body: JSON.stringify(post)
     })
@@ -63,12 +74,13 @@ type Post={
     paymentId:string;
 }
 
-export const patchData = async (url:string, post:userdata | Post | {}, token:string) => {
+export const patchData = async (url:string, post:userdata | Post | {}, token?:string) => {
+    
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PATCH',
-        headers: {
+        headers:  {
             'Content-Type': 'application/json',
-            'Authorization': token
+      
         },
         body: JSON.stringify(post)
     })
@@ -78,12 +90,12 @@ export const patchData = async (url:string, post:userdata | Post | {}, token:str
 }
 
 
-export const deleteData = async (url:string, token:string) => {
+export const deleteData = async (url:string, token?:string) => {
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
+      
         }
     })
 

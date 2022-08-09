@@ -49,7 +49,7 @@ const Profile = () => {
 
     const updatePassword = () => {
         dispatch({ type: 'NOTIFY', payload: { loading: true } })
-        patchData('user/resetPassword', { password }, auth.token)
+        patchData('user/resetPassword', { password }, (auth.token || ''))
             .then(res => {
                 if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.err } })
                 return dispatch({ type: 'NOTIFY', payload: { success: res.msg } })
@@ -84,7 +84,7 @@ const Profile = () => {
         }
         patchData('user', {
             name, avatar: avatar ? media?.[0].url : auth.user?.avatar
-        }, auth.token).then(res => {
+        }, (auth.token || '')).then(res => {
             if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.err } })
 
             dispatch({

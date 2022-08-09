@@ -11,7 +11,7 @@ const nextConfig = {
 module.exports = {
   nextConfig,
   env: {
-    BASE_URL: "https://nextjs-ecommerce-two-nu.vercel.app",
+    BASE_URL: "http://localhost:3000",
     MONGODB_URL:
       "mongodb+srv://anju3684:anju3684@cluster0.8qqva.mongodb.net/nextjs-ecommerce?retryWrites=true&w=majority",
 
@@ -28,3 +28,4 @@ module.exports = {
 //sb-jzj0x19770176@personal.example.com
 
 //asdf1234
+//https://nextjs-ecommerce-two-nu.vercel.app
