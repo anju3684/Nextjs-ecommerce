@@ -59,7 +59,8 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
     }, [cart])
 
     useEffect(() => {
-        if (auth.token !== '') {
+        console.log(auth)
+        if (!auth) {
             getData('order', auth.token)
                 .then((res) => {
                     if (res.err) {
