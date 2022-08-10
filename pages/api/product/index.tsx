@@ -51,7 +51,7 @@ class APIfeatures {
   
     sorting(){
         if(this.queryString.sort){
-            const sortBy = (this.queryString.sort as string).split(',').join('')
+            const sortBy = this.queryString.sort.split(',').join('')
             this.query = this.query.sort(sortBy)
         }else{
             this.query = this.query.sort('-createdAt')
@@ -76,7 +76,7 @@ async function getProducts(req: NextApiRequest, res: NextApiResponse) {
         console.log(features)
         const products = await features.query
         console.log(products)
-        res.json({
+       return res.json({
             status: 'success',
             result: products.length,
             products
