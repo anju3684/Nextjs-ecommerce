@@ -5,7 +5,7 @@ import auth from "../../../middleware/auth";
 import Products from "../../../models/productModel"
 import { NextApiRequest, NextApiResponse } from 'next'
 import { ErrorState, ProductType } from "../../../state"
-import { Number } from "mongoose";
+
 connectDB()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -60,8 +60,9 @@ async function getOrder(req: NextApiRequest, res: NextApiResponse) {
             orders=await Orders.find({user:result.id}).populate("user","-password")
         }else{
             orders=await Orders.find().populate("user","-password")
+            console.log(orders)
         }
-   
+      
         res.json({
             orders
         })

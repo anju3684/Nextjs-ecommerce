@@ -18,6 +18,7 @@ export const getData=async(url:string,token:string)=>{
          headers:headers
     })
     const data=await res.json();
+    console.log(data)
     return data
 }
 
@@ -74,12 +75,13 @@ type Post={
     paymentId:string;
 }
 
-export const patchData = async (url:string, post:userdata | Post | {}, token?:string) => {
+export const patchData = async (url:string, post:userdata | Post | {}, token:string) => {
     
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PATCH',
         headers:  {
             'Content-Type': 'application/json',
+            'Authorization':token,
       
         },
         body: JSON.stringify(post)

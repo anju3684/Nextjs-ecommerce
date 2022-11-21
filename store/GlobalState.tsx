@@ -18,7 +18,7 @@ export const DataContext = createContext({} as InitContextProps)
 
 
 export const DataProvider: React.FC<Props> = ({ children }) => {
-    const initialState: state = { notify: {}, auth: {}, cart: [], modal: [], orders: [], users: [],categories:[] }
+    const initialState: state = { notify: {}, auth: {token:''}, cart: [], modal: [], orders: [], users: [],categories:[] }
     const [state, dispatch] = useReducer(reducer, initialState)
     const value = { state, dispatch }
     const { cart, auth } = state
@@ -60,7 +60,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         console.log(auth)
-        if (!auth) {
+        if (auth) {
             getData('order', auth.token)
                 .then((res) => {
                     if (res.err) {

@@ -58,7 +58,6 @@ const Profile = () => {
 
     const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        console.log(file)
         if (!file)
             return dispatch({ type: 'NOTIFY', payload: { error: 'File does not exist.' } })
 
