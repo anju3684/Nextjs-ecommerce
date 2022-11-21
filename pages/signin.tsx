@@ -19,7 +19,7 @@ const Signin: NextPage = () => {
   const {auth}=state
 
   useEffect(()=>{
-      if(Object.keys(auth).length !== 0){
+      if(auth.user){
           router.push("/")
       }
   },[auth])
@@ -33,7 +33,7 @@ const Signin: NextPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     dispatch({ type: 'NOTIFY', payload: { loading: true } })
-    const res = await postData('auth/login', userData)
+    const res = await postData('auth/login', userData,'')
     if (res.err) {
       return dispatch({ type: 'NOTIFY', payload: { error: res.err } })
     }

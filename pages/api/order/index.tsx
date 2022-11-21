@@ -55,12 +55,13 @@ const sold = async (id: string, quantity: number, oldInStock: number, oldSold: n
 async function getOrder(req: NextApiRequest, res: NextApiResponse) {
     try {
         const result =await auth(req,res)
+        console.log(result)
         let orders;
         if(result.role!=='admin'){
             orders=await Orders.find({user:result.id}).populate("user","-password")
         }else{
             orders=await Orders.find().populate("user","-password")
-            console.log(orders)
+            // console.log(orders)
         }
       
         res.json({

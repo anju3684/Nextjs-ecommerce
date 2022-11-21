@@ -73,9 +73,9 @@ async function getProducts(req: NextApiRequest, res: NextApiResponse) {
     try {
         const features = new APIfeatures(Products.find(), req.query)
         .filtering().sorting().paginating()
-        console.log(features)
+        // console.log(features)
         const products = await features.query
-        console.log(products)
+        // console.log(products)
        return res.json({
             status: 'success',
             result: products.length,

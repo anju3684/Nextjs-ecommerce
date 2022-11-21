@@ -32,7 +32,7 @@ const PaypalBtn=({order}: Props )=>{
 
                 patchData(`order/payment/${order._id}`,{
                   paymentId:orderData.payer.payer_id,
-                }, auth.token)
+                }, (auth.token) as string)
                 .then(res => {
                   if(res.err) return dispatch({ type: 'NOTIFY', payload: {error: res.err} })
                   

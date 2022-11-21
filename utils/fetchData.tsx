@@ -2,7 +2,7 @@ import { userdata,cartData,Categories, ProductType } from "../state";
 const baseUrl=process.env.BASE_URL
 export const getData=async(url:string,token:string)=>{
     let headers;
-    if(token!==''){
+    if(token){
         headers={
             'Authorization':token,
             'Content-Type':'application/json'
@@ -18,12 +18,12 @@ export const getData=async(url:string,token:string)=>{
          headers:headers
     })
     const data=await res.json();
-    console.log(data)
+    // console.log(data)
     return data
 }
 
-export const postData=async(url:string,post:userdata | cartData | Categories | ProductType,token?:string)=>{
-    console.log(post)
+export const postData=async(url:string,post:userdata | cartData | Categories | ProductType,token:string)=>{
+    // console.log(post)
     let headers;
     if(token){
         headers={
@@ -43,25 +43,15 @@ export const postData=async(url:string,post:userdata | cartData | Categories | P
         body:JSON.stringify(post)
     })
     const data=await res.json();
-     console.log(data)
+    //  console.log(data)
     return data
 }
-export const putData = async (url:string, post:userdata| Categories | ProductType, token?:string) => {
-    let headers;
-    if(token!==''){
-        headers={
-            'Authorization':token,
-            'Content-Type':'application/json'
-        }
-    }
-    else{
-        headers={
-            'Content-Type':'application/json'
-        }
-    }
+export const putData = async (url:string, post:userdata| Categories | ProductType, token:string) => {
+    
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'PUT',
         headers: {
+            'Authorization':token,
             'Content-Type': 'application/json',
       
         },
@@ -92,7 +82,7 @@ export const patchData = async (url:string, post:userdata | Post | {}, token:str
 }
 
 
-export const deleteData = async (url:string, token?:string) => {
+export const deleteData = async (url:string, token:string) => {
     const res = await fetch(`${baseUrl}/api/${url}`, {
         method: 'DELETE',
         headers: {

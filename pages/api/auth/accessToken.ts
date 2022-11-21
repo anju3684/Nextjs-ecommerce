@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         const result = jwt.verify(rf_token, (process.env.REFRESH_TOKEN_SECRET || '')) as IdEmail
         if (!result) return res.status(400).json({ err: 'Your token is incorrect or has expired.' })
-        console.log(result)
+        // console.log(result)
         const user = await Users.findById(result?.id)
         if (!user) return res.status(400).json({ err: 'User does not exist.' })
 

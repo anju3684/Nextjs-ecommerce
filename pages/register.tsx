@@ -17,7 +17,7 @@ const Register: NextPage = () => {
   const {auth}=state
   const router=useRouter()
   useEffect(()=>{
-    if(Object.keys(auth).length !== 0){
+    if(auth.user){
         router.push("/")
     }
 },[auth])
@@ -37,8 +37,8 @@ const Register: NextPage = () => {
       return dispatch({type:'NOTIFY',payload:{error:errMsg}})
     }
     dispatch({type:'NOTIFY',payload:{loading:true}})
-    const res=await postData('auth/register',userData)
-    console.log(res)
+    const res=await postData('auth/register',userData,'')
+    // console.log(res)
     if(res.err){
       return dispatch({type:'NOTIFY',payload:{error:res.err}})
     }

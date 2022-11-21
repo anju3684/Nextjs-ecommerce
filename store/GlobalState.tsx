@@ -3,7 +3,7 @@ import { createContext, useReducer, Dispatch, useEffect, useContext } from "reac
 import reducer from "./Reducers";
 import { state, Action } from "../state"
 import { getData } from "../utils/fetchData"
-import order from "../pages/api/order";
+
 interface Props {
     children: React.ReactNode;
 }
@@ -59,8 +59,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
     }, [cart])
 
     useEffect(() => {
-        console.log(auth)
-        if (auth) {
+        if (auth?.user) {
             getData('order', auth.token)
                 .then((res) => {
                     if (res.err) {
@@ -68,7 +67,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
                     }
                     dispatch({ type: 'ADD_ORDERS', payload: res.orders })
                 })
-            if (auth.user?.role === 'admin') {
+            if (auth?.user?.role === 'admin') {
                 getData('user', auth.token)
                     .then((res) => {
                         if(res.err){

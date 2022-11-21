@@ -1,6 +1,6 @@
 import { userdata } from "../state"
 const valid = ({name, email, password, cf_password}:userdata) => {
-    console.log(password,name,email)
+    // console.log(password,name,email)
     if (!name || !email || !password) {
         return 'Please add all fields.'
     }

@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 async function resetPassword(req: NextApiRequest, res: NextApiResponse) {
     try {
         const result=await auth(req,res)
-        console.log(result)
+        // console.log(result)
         const {password}=req.body
         const passwordHash=await bcrypt.hash(password,12)
         await Users.findOneAndUpdate({_id:result.id},{password:passwordHash})

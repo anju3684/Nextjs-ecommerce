@@ -15,7 +15,7 @@ const NavBar: NextPage = () => {
   const { state, dispatch } = useContext(DataContext)
   const { auth, cart } = state
 
-  console.log(auth)
+
   const isActive = (r: string) => {
     if (r === router.pathname) {
       return "Active"
@@ -48,7 +48,7 @@ const NavBar: NextPage = () => {
     Cookie.remove('refreshToken', { path: 'api/auth/accessToken' })
     localStorage.removeItem('firstLogin')
     dispatch({ type: 'NOTIFY', payload: { success: 'Logged out' } })
-    dispatch({ type: 'AUTH', payload: [] })
+    dispatch({ type: 'AUTH', payload: {token:''} })
     
   }
 
@@ -112,7 +112,8 @@ const NavBar: NextPage = () => {
               </Link>
             </li>
             {
-               Object.keys(auth as authuser).length === 0 ?
+                //(Object.keys(auth as authuser).length===0) 
+                (!auth.user)?
                 <>
                   <li className="nav-item active">
                     <Link href="/signin">
