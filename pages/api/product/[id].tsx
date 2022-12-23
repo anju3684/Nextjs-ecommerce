@@ -60,7 +60,7 @@ const updateProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 const deleteProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const result = await auth(req, res)
-
+        console.log(result)
         if (result.role !== 'admin')
             return res.status(400).json({ err: 'Authentication is not valid.' })
 

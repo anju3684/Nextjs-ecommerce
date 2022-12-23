@@ -63,7 +63,7 @@ const Home: NextPage<Props> = (props: Props) => {
   }
 
   const handleLoadmore = () => {
-    setPage(page + 1)
+    setPage((+page) + 1)
     filterSearch({router, page: page + 1})
   }
   return (
@@ -96,7 +96,7 @@ const Home: NextPage<Props> = (props: Props) => {
       }
     </div>
     {
-        props.result < page * 6 ? ""
+        props.result < +page * 6 ? ""
         : <button className="btn btn-outline-info d-block mx-auto mb-4"
         onClick={handleLoadmore}>
           Load more
@@ -111,13 +111,13 @@ const Home: NextPage<Props> = (props: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({query}) => {
 
-  const page:any= query.page || 1
+  const page:string|string[]= query.page || '1'
   const category = query.category || 'all'
   const sort = query.sort || ''
   const search = query.search || 'all'
 
   const res = await getData(
-    `product?limit=${page * 6}&category=${category}&sort=${sort}&title=${search}`,''
+    `product?limit=${+page * 6}&category=${category}&sort=${sort}&title=${search}`,''
   )
 
   //server side rendering 

@@ -1,5 +1,5 @@
 
-export const imageUpload = async (images:any) => {
+export const imageUpload = async (images:File[] | string[]) => {
 
     let imgArr = []
     for(let item of images){

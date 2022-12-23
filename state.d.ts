@@ -59,6 +59,7 @@ export interface ProductType{
     content?:string;
     category?:string;
     quantity?:number;
+   
 
 }
 type Cart={
@@ -74,7 +75,7 @@ type Modal={
 export interface Order{
     address?:string;
     cart?:ProductType[];
-    createdAt?:string;
+    createdAt?:string | number | Date;
     delivered?:boolean;
     mobile?:string;
     paid?:boolean;
@@ -91,3 +92,4 @@ type Categories={
     _id?:string;
     name?:string;
 }
+

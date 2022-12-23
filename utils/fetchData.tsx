@@ -87,7 +87,7 @@ export const deleteData = async (url:string, token:string) => {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-      
+            'Authorization':token,
         }
     })
 

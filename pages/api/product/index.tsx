@@ -2,9 +2,8 @@
 import connectDB from "../../../utils/connectDB";
 import Products from "../../../models/productModel";
 import { NextApiRequest, NextApiResponse } from 'next'
-import { ErrorState } from "../../../state"
+import { ErrorState,ProductType } from "../../../state"
 import auth from '../../../middleware/auth'
-
 
 
 connectDB()
@@ -21,20 +20,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
 }
-// type QueryString={
-//     [key:string]:string | number | boolean | QueryString | null |undefined| string[]|number[]
-// }   
+ 
 class APIfeatures {
     public query:any;
     
     public queryString:any;
     
     constructor(query:any, queryString:any){
-        console.log(query,queryString)
         this.query = query;
         this.queryString = queryString;
     }
     filtering(){
+        console.log(this.queryString)
         const queryObj = {...this.queryString}
         console.log(queryObj)
         const excludeFields = ['page', 'sort', 'limit']

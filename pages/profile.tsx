@@ -8,7 +8,8 @@ import valid from '../utils/valid'
 import { patchData } from '../utils/fetchData'
 
 import { imageUpload } from '../utils/imageUpload'
-let image: any;
+import { Order } from '../state'
+let image: File;
 const Profile = () => {
     const initialSate = {
         avatar:'',
@@ -172,7 +173,7 @@ const Profile = () => {
 
                             <tbody>
                                 {
-                                    orders.map((order:any) => (
+                                    orders.map((order:Order) => (
                                         <tr key={order._id}>
                                             <td className="p-2">
                                                 <Link href={`/order/${order._id}`}>
@@ -181,7 +182,7 @@ const Profile = () => {
 
                                             </td>
                                             <td className="p-2">
-                                                {new Date(order.createdAt).toLocaleDateString()}
+                                                {new Date(order?.createdAt as string).toLocaleDateString()}
                                             </td>
                                             <td className="p-2">${order.total}</td>
                                             <td className="p-2">

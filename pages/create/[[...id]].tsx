@@ -56,11 +56,11 @@ const ProductsManager = () => {
 
     const handleUploadInput = (e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         dispatch({type: 'NOTIFY', payload: {}})
-        let newImages: any[] = []
+        let newImages: File[] = []
         let num = 0
         let err = ''
 
-        const file=(e.currentTarget as any).files ;
+        const file=(e.currentTarget as HTMLInputElement | HTMLFormElement).files ;
       
        const files=[...file]; 
       
@@ -87,9 +87,10 @@ const ProductsManager = () => {
         if(imgCount + newImages.length > 5)
         return dispatch({type: 'NOTIFY', payload: {error: 'Select up to 5 images.'}})
         setImages([...images, ...newImages])
+        console.log(images)
     }
 
-    const deleteImage = (index:any) => {
+    const deleteImage = (index:number) => {
         console.log(index)
         const newArr = [...images]
         newArr.splice(index, 1)
@@ -109,7 +110,7 @@ const ProductsManager = () => {
         let media: { public_id: string; url: string }[] = []
         const imgNewURL = images.filter(img => !img.url)
         const imgOldURL = images.filter(img => img.url)
-
+        console.log(imgNewURL)
         if(imgNewURL.length > 0){
          media = await imageUpload(imgNewURL)
          console.log(media)
@@ -199,7 +200,7 @@ const ProductsManager = () => {
                         {
                             images.map((img, index) => (
                                 <div key={index} className="file_img my-1">
-                                    <img src={(img.url) ? img.url : URL.createObjectURL((img))}
+                                    <img src={(img.url) ? img.url : URL.createObjectURL((img as File))}
                                      alt="" className="img-thumbnail rounded" />
 
                                      <span onClick={() => deleteImage(index)}>X</span>
