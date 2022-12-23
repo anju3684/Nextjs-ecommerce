@@ -1,7 +1,7 @@
 import { NextRouter, Router } from "next/router";
 
 type Props={
-    page:number| string;
+    page?:number| string;
     category?:string;
     router:NextRouter;
     sort?:string;
