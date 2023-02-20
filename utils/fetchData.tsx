@@ -3,20 +3,10 @@ const baseUrl=process.env.BASE_URL
 export const getData=async(url:string,token:string)=>{
     console.log(url)
     let headers;
-    if(token){
-        headers={
-            'Authorization':token,
-            'Content-Type':'application/json'
-        }
-    }
-    else{
-        headers={
-            'Content-Type':'application/json'
-        }
-    }
     const res=await fetch(`${baseUrl}/api/${url}`,{
         method:'GET',
          headers:{
+            'Authorization':token,
             'Content-Type':'application/json'
          }
     })
