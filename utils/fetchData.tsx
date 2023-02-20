@@ -1,6 +1,7 @@
 import { userdata,cartData,Categories, ProductType } from "../state";
 const baseUrl=process.env.BASE_URL
 export const getData=async(url:string,token:string)=>{
+    console.log(url)
     let headers;
     if(token){
         headers={
@@ -15,10 +16,12 @@ export const getData=async(url:string,token:string)=>{
     }
     const res=await fetch(`${baseUrl}/api/${url}`,{
         method:'GET',
-         headers:headers
+         headers:{
+            'Content-Type':'application/json'
+         }
     })
     const data=await res.json();
-    // console.log(data)
+     console.log(data)
     return data
 }
 
